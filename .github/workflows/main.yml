@@ -1,0 +1,21 @@
+# .github/workflows/main.yml
+name: DevSecOps Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        working-directory: ./app
+        run: pip install -r requirements.txt
