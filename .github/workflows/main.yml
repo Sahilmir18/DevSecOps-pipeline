@@ -19,3 +19,23 @@ jobs:
       - name: Install Dependencies
         working-directory: ./app
         run: pip install -r requirements.txt
+  # .github/workflows/main.yml
+  # ... (keep the 'build' job as it is)
+
+  sca-scan:
+    name: "SCA Scan (Trivy)"
+    needs: build # This job runs after the 'build' job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Trivy filesystem scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: './app' # Scan the application directory
+          format: 'table'
+          exit-code: '1' # Fail the build if vulnerabilities are found
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
