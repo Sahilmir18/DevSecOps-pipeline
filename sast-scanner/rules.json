@@ -1,0 +1,16 @@
+[
+  {
+    "id": "PY001",
+    "name": "Use of shell=True in subprocess",
+    "pattern": "subprocess\\.run\\(.*shell=True.*\\)",
+    "message": "Using 'shell=True' can lead to shell injection vulnerabilities. Avoid it if possible.",
+    "severity": "CRITICAL"
+  },
+  {
+    "id": "PY002",
+    "name": "Running Flask in Debug Mode",
+    "pattern": "app\\.run\\(.*debug=True.*\\)",
+    "message": "Running Flask in debug mode exposes a remote debugger and is highly insecure for production.",
+    "severity": "HIGH"
+  }
+]

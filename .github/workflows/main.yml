@@ -19,23 +19,20 @@ jobs:
       - name: Install Dependencies
         working-directory: ./app
         run: pip install -r requirements.txt
-  # .github/workflows/main.yml
-  # ... (keep the 'build' job as it is)
 
-  sca-scan:
-    name: "SCA Scan (Trivy)"
-    needs: build # This job runs after the 'build' job
+  custom-sast-scan:
+    name: "Custom SAST Scan"
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-
-      - name: Run Trivy filesystem scanner
-        uses: aquasecurity/trivy-action@master
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
         with:
-          scan-type: 'fs'
-          scan-ref: './app' # Scan the application directory
-          format: 'table'
-          exit-code: '1' # Fail the build if vulnerabilities are found
-          ignore-unfixed: true
-          severity: 'CRITICAL,HIGH'
+          python-version: '3.9'
+      - name: Run Custom SAST Scanner
+        # This command runs your script. It will fail if your script exits with 1.
+        run: python sast-scanner/scanner.py
+
+  
