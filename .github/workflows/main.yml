@@ -44,6 +44,6 @@ jobs:
       # --- END DEBUGGING STEPS ---
 
       - name: Run Custom SAST Scanner
-        run: python sast-scanner/scanner.py
+        run: python sast-scanner/sast_scanner.py
 
   
