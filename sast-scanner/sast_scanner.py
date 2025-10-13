@@ -12,14 +12,12 @@ def scan_file(filepath, rules):
                     findings.append(f"  - [{rule['severity']}] {rule['name']} found in {filepath} at line {line_num}.")
     return findings
 
-print("--- Running Custom SAST Scanner ---")
 # Get the absolute path of the directory where this script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
 # Build the full path to the rules.json file
 rules_path = os.path.join(script_dir, 'rules.json')
-# --- END OF FIX ---
 
-print("--- Running Custom SAST Scanner ---")
+print("--- Running Custom SAST Scanner ---") # REMOVED the duplicate print from before this line
 
 try:
     # Use the new, reliable path to open the file
@@ -29,17 +27,18 @@ except FileNotFoundError:
     print(f"Error: Could not find rules file at {rules_path}")
     sys.exit(1)
 
-# ... (the rest of your script that uses the 'rules' variable) ...
-# Make sure any other file paths (like for the 'app' directory) are also correct.
-# A path relative from the repository root is usually fine for the target directory.
+# Define the directory to scan
 scan_directory = './app'
 all_findings = []
 
 # Scan the 'app' directory for Python files
-for root, _, files in os.walk('./app'):
+# CHANGED to use the variable instead of a hardcoded path
+for root, _, files in os.walk(scan_directory):
     for file in files:
         if file.endswith('.py'):
-            all_findings.extend(scan_file(os.path.join(root, file), rules))
+            # Build the full path for the file being scanned
+            full_path = os.path.join(root, file)
+            all_findings.extend(scan_file(full_path, rules))
 
 if all_findings:
     print(f"🚨 Found {len(all_findings)} SAST issues:")
