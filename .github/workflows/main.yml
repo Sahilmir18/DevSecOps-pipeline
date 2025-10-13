@@ -20,6 +20,8 @@ jobs:
         working-directory: ./app
         run: pip install -r requirements.txt
 
+  # In .github/workflows/main.yml
+
   custom-sast-scan:
     name: "Custom SAST Scan"
     needs: build
@@ -27,12 +29,21 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
       - name: Set up Python 3.9
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
+
+      # --- NEW DEBUGGING STEPS ---
+      - name: List files in the workspace
+        run: ls -R
+
+      - name: Show Current Working Directory
+        run: pwd
+      # --- END DEBUGGING STEPS ---
+
       - name: Run Custom SAST Scanner
-        # This command runs your script. It will fail if your script exits with 1.
         run: python sast-scanner/scanner.py
 
   
