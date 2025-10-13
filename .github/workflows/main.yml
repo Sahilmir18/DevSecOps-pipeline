@@ -45,5 +45,19 @@ jobs:
 
       - name: Run Custom SAST Scanner
         run: python sast-scanner/sast_scanner.py
+  
 
+  custom-sca-scan:
+    name: "Custom SCA Scan"
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Run Custom SCA Scanner
+        run: python sca-scanner/scanner.py
   
