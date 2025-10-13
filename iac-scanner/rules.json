@@ -1,0 +1,18 @@
+[
+  {
+    "id": "AZR001",
+    "resource_type": "azurerm_network_security_group",
+    "attribute": "source_address_prefix",
+    "invalid_value": "0.0.0.0/0",
+    "message": "Network Security Rule allows access from the entire internet (0.0.0.0/0).",
+    "severity": "CRITICAL"
+  },
+  {
+    "id": "AZR002",
+    "resource_type": "azurerm_storage_account",
+    "attribute": "allow_nested_items_to_be_public",
+    "invalid_value": true,
+    "message": "Storage Account allows public access to blobs. This is highly discouraged.",
+    "severity": "HIGH"
+  }
+]

@@ -60,4 +60,29 @@ jobs:
           python-version: '3.9'
       - name: Run Custom SCA Scanner
         run: python sca-scanner/scanner.py
+
+# In .github/workflows/main.yml
+
+# ... (keep your existing build, custom-sast-scan, and custom-sca-scan jobs)
+
+  # --- NEW JOB FOR IAC SCANNING ---
+  iac-scan:
+    name: "IaC Scan (Terraform)"
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install IaC Scanner Dependencies
+        # The runner needs the hcl2 library to parse the files
+        run: pip install python-hcl2
+
+      - name: Run Custom IaC Scanner
+        run: python iac-scanner/scanner.py
   
