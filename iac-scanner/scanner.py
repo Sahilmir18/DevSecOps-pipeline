@@ -30,26 +30,32 @@ for root, _, files in os.walk(scan_directory):
 
             with open(filepath, 'r') as f:
                 try:
-                    # Use hcl2 to parse the Terraform file into a Python dictionary
                     terraform_code = hcl2.load(f)
                     
-                    # Look through all defined resources in the file
                     for resource in terraform_code.get('resource', []):
                         for resource_type, resource_config in resource.items():
                             for resource_name, config_data in resource_config.items():
-                                # Now, check this resource against our rules
                                 for rule in rules:
                                     if rule['resource_type'] == resource_type:
-                                        # Check for simple attributes first
-                                        if rule['attribute'] in config_data and config_data[rule['attribute']] == rule['invalid_value']:
-                                            finding = f"  - [{rule['severity']}] {rule['id']}: {rule['message']} (in resource '{resource_name}')"
-                                            all_findings.append(finding)
                                         
-                                        # Check for attributes inside nested blocks (like NSG security_rule)
+                                        # CORRECTED: Create and append a dictionary for each finding
+                                        def add_finding():
+                                            finding = {
+                                                "id": rule['id'],
+                                                "message": rule['message'],
+                                                "resource": resource_name,
+                                                "severity": rule['severity']
+                                            }
+                                            all_findings.append(finding)
+
+                                        # Check for simple attributes
+                                        if rule['attribute'] in config_data and config_data[rule['attribute']] == rule['invalid_value']:
+                                            add_finding()
+                                        
+                                        # Check for attributes inside nested blocks
                                         for block in config_data.get('security_rule', []):
                                             if rule['attribute'] in block and block[rule['attribute']] == rule['invalid_value']:
-                                                finding = f"  - [{rule['severity']}] {rule['id']}: {rule['message']} (in resource '{resource_name}')"
-                                                all_findings.append(finding)
+                                                add_finding()
 
                 except Exception as e:
                     print(f"Error parsing {filepath}: {e}")
@@ -57,12 +63,23 @@ for root, _, files in os.walk(scan_directory):
 if not tf_files_found:
     print("No Terraform files (.tf) found to scan.")
 
-# --- Report the results ---
-if all_findings:
-    print(f"\n🚨 Found {len(all_findings)} IaC issues:")
-    for finding in all_findings:
-        print(finding)
-    sys.exit(1) # Fail the pipeline
-else:
+# --- Single, Correct Reporting Block with SEVERITY CHECK ---
+if not all_findings:
     print("\n✅ No IaC issues found.")
-    sys.exit(0) # Pass the pipeline
+    sys.exit(0)
+else:
+    print(f"\n🚨 Found {len(all_findings)} IaC issues:")
+    high_severity_found = False
+    for finding in all_findings:
+        # Now this works because `finding` is a dictionary with a 'severity' key
+        print(f"  - [{finding['severity']}] {finding['id']}: {finding['message']} (in resource '{finding['resource']}')")
+        if finding['severity'] in ['CRITICAL', 'HIGH']:
+            high_severity_found = True
+
+    # ONLY fail the build if a critical or high issue was found
+    if high_severity_found:
+        print("\n🔥 Build FAILED due to HIGH or CRITICAL severity issues.")
+        sys.exit(1)
+    else:
+        print("\n✅ Build PASSED with only LOW or MEDIUM severity issues.")
+        sys.exit(0)
