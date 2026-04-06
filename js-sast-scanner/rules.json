@@ -1,0 +1,16 @@
+[
+  {
+    "id": "JS001",
+    "name": "Use of dangerouslySetInnerHTML",
+    "pattern": "dangerouslySetInnerHTML",
+    "message": "The 'dangerouslySetInnerHTML' prop can lead to Cross-Site Scripting (XSS). Sanitize user input before rendering.",
+    "severity": "HIGH"
+  },
+  {
+    "id": "JS002",
+    "name": "Use of eval()",
+    "pattern": "eval\\s*\\(",
+    "message": "The 'eval()' function is dangerous and can lead to arbitrary code execution if used with untrusted input.",
+    "severity": "CRITICAL"
+  }
+]

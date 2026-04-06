@@ -85,4 +85,30 @@ jobs:
 
       - name: Run Custom IaC Scanner
         run: python iac-scanner/scanner.py
-  
+
+  js-sast-scan:
+    name: "JavaScript SAST Scan"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Run Custom JS SAST Scanner
+        run: python js-sast-scanner/scanner.py
+
+  # --- NEW JOB FOR JAVASCRIPT SCA ---
+  js-sca-scan:
+    name: "JavaScript SCA Scan"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Run Custom JS SCA Scanner
+        run: python js-sca-scanner/scanner.py
