@@ -100,7 +100,7 @@ jobs:
       #   run: python js-sast-scanner/scanner.py
       - name: Run Custom JS SAST Scanner Action
         # This line calls YOUR action from its repository at version v1
-        uses: Sahilmir18/js-sast-scanner-action@v1
+        uses: Sahilmir18/js-sast-scanner-action@v2
         with:
         # This provides the input that your action expects
           scan-directory: './vulnerable-react-app'
