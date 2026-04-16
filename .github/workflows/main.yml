@@ -92,12 +92,18 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      # - name: Set up Python
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: '3.9'
+      # - name: Run Custom JS SAST Scanner
+      #   run: python js-sast-scanner/scanner.py
+      - name: Run Custom JS SAST Scanner Action
+        # This line calls YOUR action from its repository at version v1
+        uses: Sahilmir18/js-sast-scanner-action@v1
         with:
-          python-version: '3.9'
-      - name: Run Custom JS SAST Scanner
-        run: python js-sast-scanner/scanner.py
+        # This provides the input that your action expects
+          scan-directory: './vulnerable-react-app'
 
   # --- NEW JOB FOR JAVASCRIPT SCA ---
   js-sca-scan:
