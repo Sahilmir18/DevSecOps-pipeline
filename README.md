@@ -15,7 +15,7 @@ The system is designed around a Policy-as-Code model, where security rules are d
 The outcome is a proactive, preventative security control system that provides developers with immediate feedback and ensures a baseline of security is maintained automatically. This project successfully demonstrates how to transform a standard CI/CD pipeline into a powerful, automated security enforcement mechanism, making security an integral and frictionless part of the software development lifecycle.
 
 
-```markdown
+
 # DevSecOps Pipeline Template 🛡️
 
 [![CI/CD Pipeline Status](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/main.yml/badge.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/main.yml)
@@ -43,6 +43,7 @@ This pipeline is triggered on every pull request. It runs a series of security s
 
 ## 🚀 Getting Started
 
+```markdown
 You can have this pipeline running on your own project in just a few minutes.
 
 1.  **Create a New Repository:** Click the green **"Use this template"** button at the top of this page. This will create a new repository in your own GitHub account with a perfect copy of this entire project.
