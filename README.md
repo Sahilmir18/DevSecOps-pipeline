@@ -15,3 +15,76 @@ The system is designed around a Policy-as-Code model, where security rules are d
 The outcome is a proactive, preventative security control system that provides developers with immediate feedback and ensures a baseline of security is maintained automatically. This project successfully demonstrates how to transform a standard CI/CD pipeline into a powerful, automated security enforcement mechanism, making security an integral and frictionless part of the software development lifecycle.
 
 
+```markdown
+# DevSecOps Pipeline Template 🛡️
+
+[![CI/CD Pipeline Status](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/main.yml/badge.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/main.yml)
+
+A ready-to-use GitHub repository template that provides a complete, polyglot DevSecOps CI/CD pipeline. This project acts as an automated security gate, preventing insecure code from being merged into your main branch.
+
+This template includes custom-built, policy-driven scanners for:
+*   **SAST (Static Application Security Testing)** for Python/Django and JavaScript/React.
+*   **SCA (Software Composition Analysis)** for Python (pip) and JavaScript (npm).
+*   **IaC (Infrastructure as Code) Security** for Azure Terraform.
+
+## ✨ Key Features
+
+-   **Automated Security Gate:** Uses GitHub Actions and Branch Protection Rules to automatically block PRs with high-severity vulnerabilities.
+-   **Policy as Code:** Security rules are defined in simple `.json` files, making them easy to view, edit, and version control.
+-   **Polyglot Support:** Includes scanners for both Python/Django and JavaScript/React applications out of the box.
+-   **Infrastructure Security:** Scans Terraform code to find common cloud misconfigurations before they are deployed.
+-   **Easy to Use:** Get started in minutes by using this repository as a template.
+
+## 🏛️ System Architecture
+
+This pipeline is triggered on every pull request. It runs a series of security scans in parallel. If any scanner finds a high-severity issue, the workflow fails, and the pull request is blocked from merging until the issues are fixed.
+
+![System Architecture Diagram](system_architecture.png)
+
+## 🚀 Getting Started
+
+You can have this pipeline running on your own project in just a few minutes.
+
+1.  **Create a New Repository:** Click the green **"Use this template"** button at the top of this page. This will create a new repository in your own GitHub account with a perfect copy of this entire project.
+
+2.  **Open in a Codespace:** In your newly created repository, click the **`<> Code`** button, select the **Codespaces** tab, and click **"Create codespace on main"**. This will give you a ready-to-use development environment in your browser.
+
+3.  **Add Your Code:**
+    *   Delete the example applications (`/vulnerable_project` and `/vulnerable-react-app`).
+    *   Add your own application code to the repository.
+    *   Add your Terraform files to the `/infrastructure` directory.
+
+4.  **Configure the Pipeline:**
+    *   Open `.github/workflows/main.yml`.
+    *   Update the paths and directory names in each job to point to your application's source files (e.g., update the path to your `requirements.txt` or `package.json`).
+
+5.  **Customize Your Security Policies:**
+    *   Go into the scanner directories (e.g., `/sast-scanner`, `/js-sca-scanner`, etc.).
+    *   Edit the `rules.json` and `vulnerability_db.json` files to match the vulnerabilities you want to find in your own project.
+
+6.  **Enable Branch Protection:**
+    *   In your repository settings, go to **Branches** and add a protection rule for your `main` branch.
+    *   Check **"Require status checks to pass before merging"**.
+    *   Add the names of all the scanner jobs (e.g., `Python SAST Scan`, `JavaScript SCA Scan`, etc.) as required checks.
+
+That's it! Now, when you create a pull request with your code, your new DevSecOps pipeline will automatically scan it for vulnerabilities.
+
+## 🔧 How It Works
+
+This repository contains several key directories:
+-   `/.github/workflows/`: Contains the main `main.yml` GitHub Actions workflow that orchestrates all the scans.
+-   `/sast-scanner/`: The custom SAST scanner for Python.
+-   `/sca-scanner/`: The custom SCA scanner for Python dependencies.
+-   `/js-sast-scanner/`: The custom SAST scanner for JavaScript/React.
+-   `/js-sca-scanner/`: The custom SCA scanner for JavaScript dependencies.
+-   `/iac-scanner/`: The custom IaC scanner for Azure Terraform code.
+
+Each scanner directory contains a `scanner.py` (the engine) and a `.json` file (the security rules).
+
+## 🤝 Contributing
+
+Contributions are welcome! If you have ideas for new rules or improvements to the scanners, please open an issue or submit a pull request.
+
+## 📝 License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
