@@ -44,7 +44,7 @@ This pipeline is triggered on every pull request. It runs a series of security s
 
 ## 🚀 Getting Started
 
-```markdown
+
 You can have this pipeline running on your own project in just a few minutes.
 
 1.  **Create a New Repository:** Click the green **"Use this template"** button at the top of this page. This will create a new repository in your own GitHub account with a perfect copy of this entire project.
@@ -71,6 +71,7 @@ You can have this pipeline running on your own project in just a few minutes.
 
 That's it! Now, when you create a pull request with your code, your new DevSecOps pipeline will automatically scan it for vulnerabilities.
 
+```markdown
 ## 🔧 How It Works
 
 This repository contains several key directories:
