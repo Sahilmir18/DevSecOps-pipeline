@@ -18,7 +18,7 @@ The outcome is a proactive, preventative security control system that provides d
 
 # DevSecOps Pipeline Template 🛡️
 
-[![CI/CD Pipeline Status](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/main.yml/badge.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/main.yml)
+[![CI/CD Pipeline Status](https://github.com/Sahilmir18/DevSecOps-pipeline/actions/workflows/main.yml/badge.svg)](https://github.com/Sahilmir18/DevSecOps-pipeline/actions/workflows/main.yml)
 
 A ready-to-use GitHub repository template that provides a complete, polyglot DevSecOps CI/CD pipeline. This project acts as an automated security gate, preventing insecure code from being merged into your main branch.
 
@@ -39,7 +39,8 @@ This template includes custom-built, policy-driven scanners for:
 
 This pipeline is triggered on every pull request. It runs a series of security scans in parallel. If any scanner finds a high-severity issue, the workflow fails, and the pull request is blocked from merging until the issues are fixed.
 
-![System Architecture Diagram](system_architecture.png)
+<img width="881" height="467" alt="System architecture of devsecops pipeline" src="https://github.com/user-attachments/assets/0e19ddb5-0567-4f13-ba1f-c9168c412047" />
+
 
 ## 🚀 Getting Started
 
