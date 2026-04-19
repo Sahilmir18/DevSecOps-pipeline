@@ -18,7 +18,6 @@ The outcome is a proactive, preventative security control system that provides d
 
 # DevSecOps Pipeline Template 🛡️
 
-[![CI/CD Pipeline Status](https://github.com/Sahilmir18/DevSecOps-pipeline/actions/workflows/main.yml/badge.svg)](https://github.com/Sahilmir18/DevSecOps-pipeline/actions/workflows/main.yml)
 
 A ready-to-use GitHub repository template that provides a complete, polyglot DevSecOps CI/CD pipeline. This project acts as an automated security gate, preventing insecure code from being merged into your main branch.
 
@@ -71,23 +70,43 @@ You can have this pipeline running on your own project in just a few minutes.
 
 That's it! Now, when you create a pull request with your code, your new DevSecOps pipeline will automatically scan it for vulnerabilities.
 
-```markdown
-## 🔧 How It Works
+---
 
-This repository contains several key directories:
--   `/.github/workflows/`: Contains the main `main.yml` GitHub Actions workflow that orchestrates all the scans.
--   `/sast-scanner/`: The custom SAST scanner for Python.
--   `/sca-scanner/`: The custom SCA scanner for Python dependencies.
--   `/js-sast-scanner/`: The custom SAST scanner for JavaScript/React.
--   `/js-sca-scanner/`: The custom SCA scanner for JavaScript dependencies.
--   `/iac-scanner/`: The custom IaC scanner for Azure Terraform code.
+## 🛠️ Integrating with an Existing Repository (Manual Setup)
 
-Each scanner directory contains a `scanner.py` (the engine) and a `.json` file (the security rules).
+If you already have a project and want to integrate these security scanners, you can follow these manual steps.
 
-## 🤝 Contributing
+**Step 1: Copy the Scanner Directories**
 
-Contributions are welcome! If you have ideas for new rules or improvements to the scanners, please open an issue or submit a pull request.
+First, clone this template repository to your local machine. Then, copy the following directories into the root of your own project:
 
-## 📝 License
+-   `/sast-scanner/`
+-   `/sca-scanner/`
+-   `/js-sast-scanner/`
+-   `/js-sca-scanner/`
+-   `/iac-scanner/`
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+**Step 2: Copy the GitHub Actions Workflow**
+
+Copy the `.github/workflows/main.yml` file from this template into your project's `.github/workflows/` directory. If you already have an existing workflow, you will need to merge the jobs from this file into your own.
+
+**Step 3: Customize the Workflow**
+
+Open the `.github/workflows/main.yml` file and adjust the paths and configurations to match your project's structure. For example, you might need to change:
+
+-   The path to your Python `requirements.txt` file in the `python-sca-scan` job.
+-   The path to your `package.json` file in the `js-sca-scan` job.
+-   The directory scanned by the SAST scanners to point to your source code folder.
+
+**Step 4: Customize the Security Rules**
+
+Review and edit the `.json` files inside each scanner directory to fit your project's security requirements.
+
+-   Update the `vulnerability_db.json` files with dependencies relevant to your project.
+-   Update the `rules.json` files with coding patterns you want to allow or deny.
+
+**Step 5: Commit and Push**
+
+Commit all the new scanner directories and the updated workflow file to your repository. The DevSecOps pipeline will now run on your next pull request.
+
+**Note:** This is a manual setup. If this template is updated with improved scanners, you will need to manually copy the new files to receive the updates.
